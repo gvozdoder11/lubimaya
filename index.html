@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С Днём Рождения ❤️</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; background: #0a0a12; color: #fff; overflow-x: hidden; min-height: 100vh; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(180,20,100,0.25), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(80,0,150,0.3), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,20,80,0.1), transparent 60%);
+  animation: nebula 12s ease-in-out infinite alternate; z-index: -1;
+}
+@keyframes nebula { from { transform: scale(1); } to { transform: scale(1.1); } }
+.slide {
+  display: none; min-height: 100vh; padding: 60px 20px 110px;
+  align-items: center; justify-content: center; flex-direction: column;
+  animation: fadeIn 0.8s ease; position: relative; overflow: hidden; text-align: center;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.next-btn {
+  position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+  padding: 14px 40px; font-size: 17px; font-family: inherit;
+  border: 2px solid #ff2e88; border-radius: 30px;
+  background: rgba(10,10,18,0.9); color: #ff2e88;
+  cursor: pointer; letter-spacing: 2px; transition: all 0.3s;
+  box-shadow: 0 0 15px rgba(255,46,136,0.5); z-index: 100; backdrop-filter: blur(6px);
+}
+.next-btn:hover { background: #ff2e88; color: #fff; }
+.slide-title {
+  font-size: 2.4em;
+  background: linear-gradient(90deg, #ff2e88, #b026ff, #ff2e88);
+  background-size: 200% 200%; -webkit-background-clip: text; background-clip: text;
+  color: transparent; animation: glowText 3s ease infinite;
+  margin-bottom: 25px; line-height: 1.15; max-width: 90%;
+}
+@keyframes glowText { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.slide-text { font-size: 1.15em; color: #d0c8e0; line-height: 1.8; font-style: italic; max-width: 720px; margin: 12px auto; }
+.slide-text.love { color: #ffb8d8; font-size: 1.25em; font-style: normal; }
+
+.corner-photo {
+  position: absolute; width: 180px; height: 180px; object-fit: cover;
+  border-radius: 18px; border: 3px solid rgba(255,46,136,0.7);
+  box-shadow: 0 0 25px rgba(255,46,136,0.6); opacity: 0.9; z-index: 2;
+  transition: transform 0.4s;
+}
+.corner-photo:hover { transform: scale(1.12) rotate(0deg) !important; z-index: 20; }
+.corner-tl { top: 60px; left: 80px; transform: rotate(-8deg); }
+.corner-tr { top: 60px; right: 80px; transform: rotate(8deg); }
+.corner-bl { bottom: 140px; left: 80px; transform: rotate(6deg); }
+.corner-br { bottom: 140px; right: 80px; transform: rotate(-6deg); }
+
+.slide-1 .content { display: flex; align-items: center; gap: 60px; max-width: 1100px; flex-wrap: wrap; justify-content: center; z-index: 5; }
+.slide-1 .photo-frame {
+  width: 320px; height: 420px; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 0 20px rgba(255,46,136,0.7), 0 0 40px rgba(255,46,136,0.4);
+  border: 2px solid rgba(255,46,136,0.5);
+}
+.slide-1 .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+.slide-1 .text-block { max-width: 420px; text-align: left; }
+.slide-1 h1 {
+  font-size: 2.8em;
+  background: linear-gradient(90deg, #ff2e88, #b026ff, #ff2e88);
+  background-size: 200% 200%; -webkit-background-clip: text; background-clip: text;
+  color: transparent; animation: glowText 3s ease infinite;
+  margin-bottom: 20px; line-height: 1.1;
+}
+.cake { margin-top: 30px; font-size: 80px; filter: drop-shadow(0 0 20px rgba(255,46,136,0.8)); animation: cakeFloat 3s ease-in-out infinite; z-index: 5; }
+@keyframes cakeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.slide-2 .heart-container { position: relative; width: 820px; height: 740px; margin: -10px auto 0; }
+.slide-2 .heart-photo {
+  position: absolute; width: 160px; height: 120px; object-fit: cover;
+  border-radius: 14px; border: 2px solid #ff2e88;
+  box-shadow: 0 0 20px rgba(255,46,136,0.9);
+  transform: translate(-50%, -50%);
+  opacity: 0; animation: popIn 0.5s ease forwards;
+  z-index: 3; background: #1a0a1e;
+}
+.slide-2 .heart-photo:hover { transform: translate(-50%, -50%) scale(1.15); z-index: 30; }
+@keyframes popIn { from { opacity: 0; transform: translate(-50%,-50%) scale(0.3); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
+.slide-2 .heart-center {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 170px; height: 125px; object-fit: cover; border-radius: 14px;
+  border: 3px solid #fff; box-shadow: 0 0 30px #ff2e88;
+  z-index: 20; animation: centerPulse 2s ease-in-out infinite;
+}
+@keyframes centerPulse { 0%, 100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.08); } }
+
+.big-photo {
+  width: 440px; height: 500px; object-fit: cover; border-radius: 20px;
+  border: 3px solid #ff2e88; box-shadow: 0 0 30px rgba(255,46,136,0.8);
+  margin: 15px auto; display: block;
+}
+
+/* ===== СЛАЙД 4: КОНВЕРТ + СЕРДЦЕ ===== */
+.slide-4 { overflow: hidden; perspective: 1200px; }
+.envelope-stage {
+  position: relative; width: 500px; height: 400px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 5;
+  transition: opacity 0.6s ease;
+}
+.envelope-stage.opened { opacity: 0; pointer-events: none; position: absolute; }
+
+.envelope {
+  position: relative; width: 320px; height: 220px;
+  background: linear-gradient(135deg, #b026ff, #ff2e88);
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(255,46,136,0.7), 0 15px 40px rgba(0,0,0,0.5);
+  transition: transform 0.6s ease;
+}
+.envelope-stage:hover .envelope { transform: scale(1.05) translateY(-5px); }
+
+.envelope::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #8b1fd1, #d12470);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top center;
+  transition: transform 0.7s ease;
+  border-radius: 12px 12px 0 0;
+  z-index: 3;
+}
+.envelope::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 65%;
+  background: linear-gradient(135deg, #9b25c9, #e0296f);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  border-radius: 0 0 12px 12px;
+  z-index: 2;
+}
+
+.envelope-seal {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: radial-gradient(circle, #fff, #ff2e88);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ff2e88, 0 0 40px rgba(255,46,136,0.7);
+  z-index: 4;
+  animation: sealPulse 1.5s ease-in-out infinite;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+}
+@keyframes sealPulse {
+  0%, 100% { transform: translate(-50%,-50%) scale(1); box-shadow: 0 0 20px #ff2e88; }
+  50% { transform: translate(-50%,-50%) scale(1.15); box-shadow: 0 0 40px #ff2e88, 0 0 60px #ff2e88; }
+}
+
+.letter {
+  position: absolute; bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: 260px; height: 160px;
+  background: #fff8f0;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  z-index: 1;
+  transition: transform 0.9s ease 0.4s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5em;
+}
+.envelope-stage:hover .letter { transform: translateX(-50%) translateY(-40px); }
+
+.click-hint {
+  position: absolute; top: -70px; left: 50%; transform: translateX(-50%);
+  font-size: 1.3em; color: #fff;
+  text-shadow: 0 0 15px #ff2e88, 0 0 30px #ff2e88;
+  letter-spacing: 3px; animation: hintPulse 1.2s ease-in-out infinite;
+  white-space: nowrap; font-weight: bold; z-index: 10;
+}
+@keyframes hintPulse {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(10px); opacity: 0.7; }
+}
+.heart-reveal {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s, opacity 0.8s ease 0.6s;
+  z-index: 10;
+  pointer-events: none;
+}
+.heart-reveal.opened {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.heart-svg-wrap {
+  position: relative;
+  width: 560px;
+  height: 520px;
+  filter: drop-shadow(0 0 40px rgba(255,46,136,0.9));
+}
+.heart-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.heart-text {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  z-index: 5;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 12px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.heart-text h2 {
+  font-size: 2.2em;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  font-weight: bold;
+}
+.heart-text p {
+  font-size: 1.15em;
+  line-height: 1.35;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.polaroid { background: #fff; padding: 14px 14px 50px; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); transform: rotate(var(--tilt, 0deg)); transition: transform 0.4s; display: inline-block; }
+.polaroid:hover { transform: rotate(0deg) scale(1.08); z-index: 10; }
+.polaroid img { width: 220px; height: 260px; object-fit: cover; display: block; border-radius: 4px; }
+.polaroid .caption { color: #333; font-size: 16px; text-align: center; margin-top: 12px; font-style: italic; }
+.polaroid-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin: 25px 0; }
+
+.moon { width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff8e0, #f0e0b0 40%, #b8a070 100%); box-shadow: 0 0 40px rgba(255,240,200,0.8); margin: 20px auto; position: relative; animation: moonFloat 5s ease-in-out infinite; }
+.moon::after { content: ''; position: absolute; top: 30%; left: 25%; width: 30px; height: 30px; background: rgba(150,130,90,0.4); border-radius: 50%; box-shadow: 60px 40px 0 -5px rgba(150,130,90,0.35), 20px 80px 0 -8px rgba(150,130,90,0.3); }
+@keyframes moonFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+#fireworks { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.slide-8 { position: relative; padding: 40px 20px 110px; }
+.slide-8 .final-content { position: relative; z-index: 5; }
+.final-gallery { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.final-gallery img {
+  position: absolute; width: 190px; height: 190px; object-fit: cover;
+  border-radius: 20px; border: 3px solid #ff2e88;
+  box-shadow: 0 0 30px rgba(255,46,136,0.9);
+  transition: transform 0.3s; pointer-events: auto;
+  animation: floatImg 6s ease-in-out infinite;
+}
+.final-gallery img:hover { transform: scale(1.15) !important; z-index: 30; }
+@keyframes floatImg { 0%, 100% { margin-top: 0; } 50% { margin-top: -18px; } }
+.final-gallery img:nth-child(1) { top: 18%; left: 12%; transform: rotate(-10deg); animation-delay: 0s; }
+.final-gallery img:nth-child(2) { top: 16%; right: 12%; transform: rotate(9deg); animation-delay: 0.8s; }
+.final-gallery img:nth-child(3) { bottom: 22%; left: 12%; transform: rotate(7deg); animation-delay: 1.6s; }
+.final-gallery img:nth-child(4) { bottom: 20%; right: 12%; transform: rotate(-8deg); animation-delay: 2.4s; }
+
+.hearts { font-size: 3em; letter-spacing: 10px; animation: pulse 1.5s ease-in-out infinite; margin-top: 15px; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+.particle { position: fixed; pointer-events: none; font-size: 20px; animation: rise linear infinite; z-index: 1; }
+@keyframes rise { from { transform: translateY(100vh) rotate(0deg); opacity: 1; } to { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+
+@media (max-width: 768px) {
+  .slide-title { font-size: 1.6em; }
+  .slide-text { font-size: 1em; }
+  .corner-photo { width: 100px; height: 100px; }
+  .corner-tl { top: 40px; left: 20px; }
+  .corner-tr { top: 40px; right: 20px; }
+  .corner-bl, .corner-br { bottom: 100px; }
+  .corner-bl { left: 20px; }
+  .corner-br { right: 20px; }
+  .slide-1 .content { flex-direction: column; gap: 30px; }
+  .slide-1 .text-block { text-align: center; }
+  .slide-1 h1 { font-size: 2em; }
+  .slide-1 .photo-frame { width: 260px; height: 340px; }
+  .slide-2 .heart-container { width: 400px; height: 360px; }
+  .slide-2 .heart-photo { width: 80px; height: 60px; }
+  .slide-2 .heart-center { width: 90px; height: 65px; }
+  .big-photo { width: 300px; height: 380px; }
+  .polaroid img { width: 150px; height: 180px; }
+  .polaroid { padding: 10px 10px 40px; }
+  .moon { width: 140px; height: 140px; }
+  .cake { font-size: 60px; }
+  .slide { padding: 40px 15px 110px; }
+  .envelope-stage { width: 340px; height: 300px; }
+  .envelope { width: 240px; height: 165px; }
+  .envelope-seal { width: 50px; height: 50px; font-size: 24px; }
+  .letter { width: 200px; height: 120px; font-size: 2em; }
+   .heart-svg-wrap { width: 340px; height: 320px; }
+  .heart-text { width: 240px; }
+  .heart-text h2 { font-size: 1.3em; margin-bottom: 8px; }
+  .heart-text p { font-size: 0.75em; margin-bottom: 4px; }
+  .final-gallery img { width: 100px; height: 100px; }
+  .final-gallery img:nth-child(1) { top: 8%; left: 3%; }
+  .final-gallery img:nth-child(2) { top: 7%; right: 3%; }
+  .final-gallery img:nth-child(3) { bottom: 18%; left: 3%; }
+  .final-gallery img:nth-child(4) { bottom: 16%; right: 3%; }
+}
+</style>
+</head>
+<body>
+
+<section class="slide slide-1 active">
+  <img src="photos/3.jpg" class="corner-photo corner-tl" alt="">
+  <img src="photos/4.jpg" class="corner-photo corner-tr" alt="">
+  <img src="photos/5.jpg" class="corner-photo corner-bl" alt="">
+  <img src="photos/6.jpg" class="corner-photo corner-br" alt="">
+  <div class="content">
+    <div class="photo-frame"><img src="photos/1.jpg" alt=""></div>
+    <div class="text-block">
+      <h1>С Днём Рождения, любимая ❤️</h1>
+      <p class="slide-text love">Сегодня твой день. И весь этот мир — только для тебя.</p>
+    </div>
+  </div>
+  <div class="cake">🎂</div>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-2">
+  <h2 class="slide-title">Ты — моё сердце ❤️</h2>
+  <div class="heart-container" id="heartContainer">
+    <img src="photos/2.jpg" class="heart-center" alt="">
+  </div>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-3">
+  <h2 class="slide-title">Я тебя люблю 💕</h2>
+  <img src="photos/3.jpg" class="big-photo" alt="">
+  <p class="slide-text love">Каждый день с тобой — как маленький праздник.<br>Ты стала моим миром.</p>
+  <p class="slide-text">Ты — первая мысль утром и последняя ночью.</p>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-4">
+  <div class="envelope-stage" id="envelope" onclick="openEnvelope()">
+    <div class="click-hint">Нажми сюда ↓</div>
+    <div class="envelope">
+      <div class="letter">💌</div>
+      <div class="envelope-seal">❤</div>
+    </div>
+  </div>
+
+<div class="heart-reveal" id="heartReveal">
+  <div class="heart-svg-wrap">
+    <svg class="heart-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff2e88"/>
+          <stop offset="100%" stop-color="#b026ff"/>
+        </linearGradient>
+      </defs>
+      <path d="M256 472 C 100 350, 20 240, 20 150 C 20 70, 90 20, 160 20 C 210 20, 240 50, 256 90 C 272 50, 302 20, 352 20 C 422 20, 492 70, 492 150 C 492 240, 412 350, 256 472 Z"
+            fill="url(#heartGrad)"
+            filter="url(#glow)"/>
+    </svg>
+    <div class="heart-text">
+      <h2>С Днём<br>Рождения,<br>любимая</h2>
+      <p>Эти слова я<br>повторяю каждый день.</p>
+      <p>Ты — моё сердце.<br>Ты — моё всё.</p>
+      <p>Люблю тебя<br>больше всего. ❤️</p>
+    </div>
+  </div>
+</div>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-5">
+  <h2 class="slide-title">Наши моменты 📸</h2>
+  <div class="polaroid-row">
+    <div class="polaroid" style="--tilt: -6deg;"><img src="photos/13.jpg" alt=""><div class="caption">наша первая встреча</div></div>
+    <div class="polaroid" style="--tilt: 3deg;"><img src="photos/15.jpg" alt=""><div class="caption">мой любимый человек</div></div>
+    <div class="polaroid" style="--tilt: 7deg;"><img src="photos/3.jpg" alt=""><div class="caption">мы вместе ❤️</div></div>
+  </div>
+  <p class="slide-text love">Каждая фотка — кусочек моего счастья.</p>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-6">
+  <div class="moon"></div>
+  <h2 class="slide-title">Под этой луной 🌙</h2>
+  <p class="slide-text love">Пока она светит — я буду рядом.<br>В каждой твоей тёмной ночи я — твой свет.</p>
+  <p class="slide-text">Ты — моя вселенная, моя тишина и мой гром.</p>
+  <p class="slide-text love">Если погаснут все звёзды — я зажгу их заново, чтобы ты улыбнулась.</p>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-7">
+  <h2 class="slide-title">Что я хочу тебе сказать 💌</h2>
+  <p class="slide-text love">Ты — самое важное, что случилось со мной.</p>
+  <p class="slide-text">Я помню каждую нашу встречу, каждое слово, каждый взгляд.</p>
+  <p class="slide-text love">Спасибо, что ты со мной.<br>Спасибо, что выбрала меня.<br>Спасибо, что ты просто есть.</p>
+  <div class="polaroid-row">
+    <div class="polaroid" style="--tilt: -8deg;"><img src="photos/1.jpg" alt=""><div class="caption">моя</div></div>
+    <div class="polaroid" style="--tilt: 8deg;"><img src="photos/11.jpg" alt=""><div class="caption">любимая</div></div>
+  </div>
+  <button class="next-btn" onclick="next()">ДАЛЬШЕ →</button>
+</section>
+
+<section class="slide slide-8">
+  <canvas id="fireworks"></canvas>
+  <div class="final-gallery">
+    <img src="photos/12.jpg" alt="">
+    <img src="photos/13.jpg" alt="">
+    <img src="photos/14.jpg" alt="">
+    <img src="photos/1.jpg" alt="">
+  </div>
+  <div class="final-content">
+    <h2 class="slide-title">С Днём Рождения, моя родная ❤️</h2>
+    <p class="slide-text love">Спасибо, что ты есть.<br>За каждый день, за каждый взгляд,<br>за то, что ты — это ты.</p>
+    <p class="slide-text love">Я тебя очень сильно люблю. ❤️</p>
+    <div class="hearts">❤️ 🌙 ❤️</div>
+  </div>
+  <button class="next-btn" onclick="next()">СНАЧАЛА ↺</button>
+</section>
+
+<script src="script.js"></script>
+<script src="fireworks.js"></script>
+</body>
+</html>
